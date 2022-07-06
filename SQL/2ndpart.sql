@@ -81,7 +81,7 @@ FROM employees
 JOIN customers
 WHERE employees.EmployeeId = customers.SupportRepId AND employees.EmployeeId=3
 ORDER by cust_name;
-/* obtained the appropriate employee id from the view */
+
 
 /*10*/
 
