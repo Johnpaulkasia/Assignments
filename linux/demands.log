@@ -1,0 +1,17 @@
+  File: demand_data.txt
+  Size: 20        	Blocks: 8          IO Block: 4096   regular file
+Device: 10302h/66306d	Inode: 918179      Links: 1
+Access: (0664/-rw-rw-r--)  Uid: ( 1000/administrator)   Gid: ( 1000/administrator)
+Access: 2022-07-17 22:07:51.462598654 +0200
+Modify: 2022-07-17 22:07:51.462598654 +0200
+Change: 2022-07-17 22:07:51.462598654 +0200
+ Birth: 2022-07-17 22:07:51.462598654 +0200
+stat demand_data.txt
+  File: demand_data.txt
+  Size: 40        	Blocks: 8          IO Block: 4096   regular file
+Device: 10302h/66306d	Inode: 918179      Links: 1
+Access: (0664/-rw-rw-r--)  Uid: ( 1000/administrator)   Gid: ( 1000/administrator)
+Access: 2022-07-17 22:07:51.462598654 +0200
+Modify: 2022-07-17 22:11:26.301360736 +0200
+Change: 2022-07-17 22:11:26.301360736 +0200
+ Birth: 2022-07-17 22:07:51.462598654 +0200
