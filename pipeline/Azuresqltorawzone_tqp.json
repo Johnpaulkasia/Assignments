@@ -1,0 +1,154 @@
+{
+	"name": "Azuresqltorawzone_tqp",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach_tqp",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.cw_items",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy_tqp",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [
+								{
+									"name": "Source",
+									"value": "dbo.@{item().source.table}"
+								},
+								{
+									"name": "Destination",
+									"value": "raw-zone//@{item().destination.fileName}"
+								}
+							],
+							"typeProperties": {
+								"source": {
+									"type": "AzureSqlSource",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"validateDataConsistency": false
+							},
+							"inputs": [
+								{
+									"referenceName": "SourceDataset_tqp",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_table": "@item().source.table"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DestinationDataset_tqp",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_fileName": "@item().destination.fileName"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"cw_items": {
+				"type": "Array",
+				"defaultValue": [
+					{
+						"source": {
+							"table": "Certification"
+						},
+						"destination": {
+							"fileName": "dboCertification"
+						}
+					},
+					{
+						"source": {
+							"table": "Courses"
+						},
+						"destination": {
+							"fileName": "dboCourses"
+						}
+					},
+					{
+						"source": {
+							"table": "Ongoingtraining"
+						},
+						"destination": {
+							"fileName": "dboOngoingtraining"
+						}
+					},
+					{
+						"source": {
+							"table": "Pictures"
+						},
+						"destination": {
+							"fileName": "dboPictures"
+						}
+					},
+					{
+						"source": {
+							"table": "Platform"
+						},
+						"destination": {
+							"fileName": "dboPlatform"
+						}
+					},
+					{
+						"source": {
+							"table": "Review"
+						},
+						"destination": {
+							"fileName": "dboReview"
+						}
+					},
+					{
+						"source": {
+							"table": "sqlite_sequence"
+						},
+						"destination": {
+							"fileName": "dbosqlite_sequence"
+						}
+					},
+					{
+						"source": {
+							"table": "Users"
+						},
+						"destination": {
+							"fileName": "dboUsers"
+						}
+					}
+				]
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-08-10T12:55:33Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

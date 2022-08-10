@@ -1,0 +1,9 @@
+{
+	"name": "azure-datam",
+	"location": "norwayeast",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "c75e02d9-32a3-41a2-83a7-d17f188e7d02",
+		"tenantId": "0133bb48-f790-4560-a64d-ac46a472fbbc"
+	}
+}

@@ -1,0 +1,59 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "rawdataset",
+						"type": "DatasetReference"
+					},
+					"name": "rawsource"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "Transdataset",
+						"type": "DatasetReference"
+					},
+					"name": "dateformatted"
+				}
+			],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          TrainingId as short,",
+				"          UserID as short,",
+				"          CourseID as short,",
+				"          status as string,",
+				"          CompletionPercentage as short,",
+				"          StartDate as date,",
+				"          FinishDate as date,",
+				"          LastUpdated as date",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     dateFormats: ['yyyy-MM-dd'],",
+				"     timestampFormats: ['yyyy-MM-dd\\'T\\'HH:mm:ss']) ~> rawsource",
+				"rawsource derive(StartDate = toString(StartDate,'dd-MM-yyyy'),",
+				"          FinishDate = toString(FinishDate,'MM-dd-yyyy')) ~> derivedColumn1",
+				"derivedColumn1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:['ongoing-training-formatted.csv'],",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> dateformatted"
+			]
+		}
+	}
+}
